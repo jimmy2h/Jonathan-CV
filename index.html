@@ -6,11 +6,24 @@
     <title>Jonathan Vasquez | Director de Arte & Diseñador 3D</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Overlays -->
+    <svg width="0" height="0" aria-hidden="true" style="display: none;">
+        <filter id="grainy" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="4" stitchTiles="stitch" seed="0">
+                <animate attributeName="seed" from="0" to="100" dur="10s" repeatCount="indefinite"></animate>
+            </feTurbulence>
+            <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1 0 0 0 0"></feColorMatrix>
+        </filter>
+    </svg>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="rgb-fringe" aria-hidden="true"></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -33,6 +46,16 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
+        <div class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></div>
+        <!-- Hero watermark -->
+        <svg class="hero-watermark" viewBox="0 0 163 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M162.809 89.4121H82.6844C74.7832 89.4121 67.2059 92.5528 61.6216 98.1424C56.0441 103.725 52.9111 111.294 52.9111 119.185V159.996H72.1703V126.45C72.1703 116.812 72.3437 108.001 72.3437 108.001H162.809V89.4121Z" fill="currentColor"></path>
+            <path d="M162.808 118.61H111.815C103.914 118.61 96.3368 121.751 90.7524 127.341C85.1749 132.923 82.042 140.492 82.042 148.384V159.997H104.909V144.052C104.909 134.414 104.909 134.082 104.909 134.082H162.808V118.61Z" fill="currentColor"></path>
+            <path d="M162.809 146.002C144.706 146.002 134.567 145.996 116.464 146.004V160H162.809V146.002Z" fill="currentColor"></path>
+            <path d="M162.809 0.00304711H70.8863C52.0802 0.00304711 34.0448 7.47609 20.7501 20.7772C7.46368 34.07 0 52.0946 0 70.8889C0 99.2859 0 140.767 0 159.997H15.7849V67.7138C15.7849 53.2572 15.7849 41.5373 15.7849 41.5373H162.812V0L162.809 0.00304711Z" fill="currentColor"></path>
+            <path d="M162.809 51.8704H56.8042C48.903 51.8704 41.3258 55.0111 35.7414 60.6008C30.1639 66.1835 27.031 73.7522 27.031 81.6437V159.997H41.8159V96.3178C41.8159 86.6801 41.8159 78.8688 41.8159 78.8688H162.809V51.8674V51.8704Z" fill="currentColor"></path>
+        </svg>
+
         <div class="hero-content">
             <p class="hero-subtitle animate-fade-up">PORTAFOLIO</p>
             <h1 class="hero-title animate-fade-up delay-1">JONATHAN<br>VASQUEZ</h1>
@@ -57,6 +80,15 @@
             <span>Scroll</span>
             <div class="scroll-line"></div>
         </div>
+        
+        <!-- Ticker -->
+        <div class="hero-ticker">
+            <div class="hero-ticker-inner">
+                <span>BRANDING</span> <span>&bull;</span> <span>3D</span> <span>&bull;</span> <span>POST PRODUCCIÓN</span> <span>&bull;</span> <span>ANIMACIÓN</span> <span>&bull;</span> <span>RENDERS</span> <span>&bull;</span> <span>MONTAJES</span> <span>&bull;</span> <span>VISUALES</span> <span>&bull;</span>
+                <span>BRANDING</span> <span>&bull;</span> <span>3D</span> <span>&bull;</span> <span>POST PRODUCCIÓN</span> <span>&bull;</span> <span>ANIMACIÓN</span> <span>&bull;</span> <span>RENDERS</span> <span>&bull;</span> <span>MONTAJES</span> <span>&bull;</span> <span>VISUALES</span> <span>&bull;</span>
+                <span>BRANDING</span> <span>&bull;</span> <span>3D</span> <span>&bull;</span> <span>POST PRODUCCIÓN</span> <span>&bull;</span> <span>ANIMACIÓN</span> <span>&bull;</span> <span>RENDERS</span> <span>&bull;</span> <span>MONTAJES</span> <span>&bull;</span> <span>VISUALES</span> <span>&bull;</span>
+            </div>
+        </div>
     </section>
 
     <!-- About Section -->
@@ -74,6 +106,7 @@
                 </div>
                 <div class="about-info">
                     <div class="info-card">
+                        <div class="card-number">[ 01 ]</div>
                         <h3>Educación</h3>
                         <div class="info-item">
                             <span class="info-title">Diseño Gráfico</span>
@@ -86,6 +119,7 @@
                         </div>
                     </div>
                     <div class="info-card">
+                        <div class="card-number">[ 02 ]</div>
                         <h3>Idiomas</h3>
                         <div class="info-item">
                             <span class="info-title">Español</span>
@@ -97,6 +131,7 @@
                         </div>
                     </div>
                     <div class="info-card">
+                        <div class="card-number">[ 03 ]</div>
                         <h3>Intereses</h3>
                         <div class="interests-grid">
                             <span class="interest">✈️ Viajar</span>
@@ -279,7 +314,7 @@
                 <!-- Key Visuals -->
                 <div class="portfolio-item" data-category="keyvisual">
                     <div class="portfolio-card">
-                        <div class="portfolio-image" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+                        <div class="portfolio-image" style="background: url('https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=800&q=80') center/cover;">
                             <div class="portfolio-overlay">
                                 <span class="portfolio-category">Key Visual</span>
                                 <h3>Movistar - Liga de Campeones</h3>
@@ -290,7 +325,7 @@
                 </div>
                 <div class="portfolio-item" data-category="keyvisual">
                     <div class="portfolio-card">
-                        <div class="portfolio-image" style="background: linear-gradient(135deg, #c41e3a, #8b0000);">
+                        <div class="portfolio-image" style="background: url('https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?w=800&q=80') center/cover;">
                             <div class="portfolio-overlay">
                                 <span class="portfolio-category">Key Visual</span>
                                 <h3>Coca-Cola - Una Nueva Dimensión</h3>
@@ -301,7 +336,7 @@
                 </div>
                 <div class="portfolio-item" data-category="keyvisual">
                     <div class="portfolio-card">
-                        <div class="portfolio-image" style="background: linear-gradient(135deg, #ffd700, #ff8c00);">
+                        <div class="portfolio-image" style="background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80') center/cover;">
                             <div class="portfolio-overlay">
                                 <span class="portfolio-category">Key Visual</span>
                                 <h3>Gloria - Por la Gloria</h3>
@@ -462,22 +497,31 @@
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">05</span>
-                <h2 class="section-title">Contacto</h2>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>¿Tienes un proyecto en mente?</h3>
-                    <p>Estoy disponible para proyectos freelance y colaboraciones. No dudes en contactarme.</p>
-                    <div class="contact-details">
-                        <a href="mailto:eureka.vasco@gmail.com" class="contact-item">
-                            <span class="contact-icon">✉</span>
-                            <span>eureka.vasco@gmail.com</span>
-                        </a>
-                    </div>
+        <!-- Laser lines background -->
+        <div class="laser-lines">
+            <div class="laser" style="top: 15%; animation-delay: 0s;"></div>
+            <div class="laser" style="top: 25%; animation-delay: 2s; width: 150px; left: -150px;"></div>
+            <div class="laser" style="top: 60%; animation-delay: 1.5s; width: 80px;"></div>
+            <div class="laser" style="top: 75%; animation-delay: 3s; width: 250px;"></div>
+            <div class="laser" style="top: 40%; animation-delay: 4.5s; width: 120px;"></div>
+            <div class="laser" style="top: 85%; animation-delay: 0.5s; width: 90px; left: -90px;"></div>
+        </div>
+
+        <div class="container contact-container">
+            <div class="contact-header-centered">
+                <div class="contact-tag-wrapper">
+                    <span class="contact-tag"><span class="icon">✉</span> CONTACTO</span>
                 </div>
+                <h2 class="contact-huge-title">¿Tienes un proyecto en mente?</h2>
+                <p class="contact-subtitle">Estoy disponible para proyectos freelance y colaboraciones. No dudes en contactarme.</p>
+                <div class="contact-details-centered">
+                    <a href="mailto:eureka.vasco@gmail.com" class="contact-item">
+                        <span>eureka.vasco@gmail.com</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-content-centered">
                 <form class="contact-form" id="contactForm">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Tu nombre" required>
@@ -486,9 +530,9 @@
                         <input type="email" id="email" name="email" placeholder="Tu email" required>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Tu mensaje" rows="5" required></textarea>
+                        <textarea id="message" name="message" placeholder="Tu mensaje" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Enviar Mensaje</button>
+                    <button type="submit" class="submit-btn-centered">ENVIAR MENSAJE</button>
                 </form>
             </div>
         </div>

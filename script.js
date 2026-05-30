@@ -127,26 +127,50 @@ $(document).ready(function() {
         $(this).find('.portfolio-image').css('transform', 'scale(1)');
     });
 
-    // Add typing effect to hero subtitle
-    function typeWriter(element, text, speed) {
-        let i = 0;
-        element.text('');
+    // Add typing effect to hero subtitle and section titles
+    function typeTitleWithCursor($element) {
+        if ($element.hasClass('typed')) return;
+        $element.addClass('typed');
+
+        const originalText = $element.text().trim();
+        $element.empty();
         
+        const $textSpan = $('<span></span>');
+        const $cursor = $('<span class="cursor-block"></span>');
+        
+        $element.append($textSpan).append($cursor);
+        
+        let i = 0;
         function type() {
-            if (i < text.length) {
-                element.text(element.text() + text.charAt(i));
+            if (i < originalText.length) {
+                $textSpan.text($textSpan.text() + originalText.charAt(i));
                 i++;
-                setTimeout(type, speed);
+                setTimeout(type, 30 + Math.random() * 40);
+            } else {
+                $cursor.addClass('blinking');
             }
         }
-        type();
+        
+        setTimeout(type, 100);
     }
 
-    // Initialize typing effect after page load
-    setTimeout(function() {
-        // Typing effect is optional - uncomment to enable
-        // typeWriter($('.hero-subtitle'), 'PORTAFOLIO', 100);
-    }, 1000);
+    // Use IntersectionObserver to trigger typing effect on scroll
+    const titleObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                typeTitleWithCursor($(entry.target));
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    // Observe all main titles
+    $('.section-title, .hero-subtitle, .contact-huge-title').each(function() {
+        titleObserver.observe(this);
+    });
 
     // Counter animation for stats (if needed in future)
     function animateCounter(element, target, duration) {
@@ -219,6 +243,37 @@ $(document).ready(function() {
     $('.program-item').each(function(index) {
         $(this).css('animation-delay', (index * 0.1) + 's');
     });
+
+    // Generate matrix background for hero
+    function initHeroMatrix() {
+        const container = $('#heroMatrixBg');
+        if (!container.length) return;
+        
+        const numBlocks = 60; // Number of blocks
+        for (let i = 0; i < numBlocks; i++) {
+            const block = $('<div class="matrix-block"></div>');
+            
+            // Random properties
+            const top = Math.random() * 100; // 0 to 100%
+            const left = Math.random() * 100; // 0 to 100%
+            const width = Math.random() * 80 + 10; // 10px to 90px
+            const duration = Math.random() * 4 + 2; // 2s to 6s
+            const delay = Math.random() * 5; // 0s to 5s
+            const opacityMultiplier = Math.random() * 0.7 + 0.3; // for slight variety
+            
+            block.css({
+                top: top + '%',
+                left: left + '%',
+                width: width + 'px',
+                animationDuration: duration + 's',
+                animationDelay: delay + 's',
+                opacity: opacityMultiplier * 0.1
+            });
+            
+            container.append(block);
+        }
+    }
+    initHeroMatrix();
 
     console.log('[v0] Jonathan Vasquez Portfolio - Loaded successfully');
 });
