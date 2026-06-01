@@ -275,5 +275,49 @@ $(document).ready(function() {
     }
     initHeroMatrix();
 
+    // Image Modal Functionality
+    const modal = $('#imageModal');
+    const modalImg = $('#modalImage');
+    const modalCaption = $('#modalCaption');
+    
+    $('.portfolio-card').on('click', function() {
+        const bgImage = $(this).find('.portfolio-image').css('background-image');
+        
+        // Only open if there is an actual background image URL (not just a gradient)
+        if (bgImage && bgImage.includes('url')) {
+            // Extract URL removing 'url(', quotes, and ')'
+            const url = bgImage.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+            const title = $(this).find('h3').text();
+            
+            modalImg.attr('src', url);
+            modalCaption.text(title);
+            
+            modal.addClass('show');
+            $('body').css('overflow', 'hidden');
+        }
+    });
+    
+    $('#closeModal').on('click', function() {
+        modal.removeClass('show');
+        setTimeout(() => {
+            modalImg.attr('src', '');
+        }, 300);
+        $('body').css('overflow', '');
+    });
+    
+    // Close modal on click outside image
+    modal.on('click', function(e) {
+        if (e.target === this) {
+            $('#closeModal').click();
+        }
+    });
+    
+    // Close modal with Escape key
+    $(document).keyup(function(e) {
+        if (e.key === "Escape" && modal.hasClass('show')) {
+            $('#closeModal').click();
+        }
+    });
+
     console.log('[v0] Jonathan Vasquez Portfolio - Loaded successfully');
 });
